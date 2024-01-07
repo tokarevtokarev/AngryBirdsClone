@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject lockButton;
+    public GameObject[] lockButton;
     public Image[] level1Stars;
     public Image[] level2Stars;
     
@@ -14,7 +14,6 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerPrefs.DeleteAll();
         if (PlayerPrefs.GetInt("levelunlocked", 0) == 1) {
             lockButton.SetActive(false);
         }
@@ -29,6 +28,15 @@ public class MainMenu : MonoBehaviour
         while (PlayerPrefs.GetInt("level2Stars", 0) != i) {
             level2Stars[i].sprite = goldenStar;
             i++;
+        }
+    }
+
+    private void DeactivateLockButtons() {
+        int levelBeaten = PlayerPrefs.GetInt("levelbeaten", 0);
+        for (int i = 0; i < levelBeaten; i++) {
+            if (levelBeaten > 0) {
+                lockButton[i -1].SetActive(false);
+            }
         }
     }
 

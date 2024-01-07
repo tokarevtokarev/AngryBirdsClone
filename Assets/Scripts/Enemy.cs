@@ -23,6 +23,12 @@ public class Enemy : MonoBehaviour
     void Die() {
         EnemiesAlive--;
         Destroy(gameObject);
+
+        if (GameManager.GM != null) {
+            if (EnemiesAlive <= 0) {
+                GameManager.GM.GameOver = true;
+            }
+        }
     }
 
     // Update is called once per frame
